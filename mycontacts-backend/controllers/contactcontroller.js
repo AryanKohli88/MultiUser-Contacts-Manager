@@ -11,13 +11,18 @@ const getContacts = asyncHandler(async(req,res)=> {
 //@desc Create new contact
 //@route POST /api/contacts
 //@access private 
-const creatContact = asyncHandler(async(req,res)=> {
-    console.log(" body is : ",req.body);
+const createContact = asyncHandler(async(req,res)=> {
     const{name, email, phone} = req.body;
     if(!name || !email || !phone ){
         res.status(400); 
         throw new Error("Missing field");
     }
+    const existingContact = await Contact.findOne({ phone, user_id: req.user.id });
+    if (existingContact) {
+        res.status(400);
+        throw new Error("A contact with this phone number already exists for this user");
+    }
+
     const contact = await Contact.create({
         name, email, phone, user_id: req.user.id
     });
@@ -54,6 +59,10 @@ res.status(200).json(updateContact);
 //@access private 
 const getConact = asyncHandler(async(req,res)=> {
     const contact = await Contact.findById(req.params.id);
+    if (contact.user_id.toString() !== req.user.id) {
+        res.status(403); // Forbidden
+        throw new Error("User is not authorized to access this contact");
+    }
     if(!contact){
         res.status(404);
         throw new Error("Contact not found");
@@ -82,4 +91,4 @@ const deleteconatct = asyncHandler(async(req,res)=> {
     res.status(200).json(contact);
 });
 
-module.exports = {getContacts, creatContact,deleteconatct,updateContact,getConact};
+module.exports = {getContacts, createContact,deleteconatct,updateContact,getConact};

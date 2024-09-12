@@ -1,12 +1,12 @@
 const express = require("express");
-const { reguser, loginuser , curruser} = require("../controllers/usercontroller");
+const { regUser, loginUser , currUser} = require("../controllers/usercontroller");
 const validatetoken = require("../middleware/validatetokenhandler");
 const router = express.Router();
 
-router.post("/register",reguser);
+router.post("/register",regUser);
 
-router.post("/login",loginuser);
+router.post("/login",loginUser);
 
-router.get("/current", validatetoken ,curruser);
+router.get("/current", validatetoken ,currUser);
 
 module.exports = router;

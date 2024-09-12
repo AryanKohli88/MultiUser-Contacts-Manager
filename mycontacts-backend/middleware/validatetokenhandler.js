@@ -6,6 +6,10 @@ const validatetoken = asyncHandler(async(req,res,next) =>{
     let authHeader = req.headers.Authorization || req.headers.authorization;
     if(authHeader && authHeader.startsWith("Bearer")){
         token = authHeader.split(" ")[1];
+        if(!token) {
+            res.status(401);
+            throw new Error("token is missing");
+        }
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded)=>{
             if(err){
                 res.status(401);
@@ -13,12 +17,9 @@ const validatetoken = asyncHandler(async(req,res,next) =>{
             }
             req.user = decoded.user;
             next();
-            console.log(decoded);
-            if(!token) {
-                res.status(401);
-                throw new Error("token is missing");
-            }
         })
+    } else {
+        res.status(400).json(`Bad Request, Can not get authentication Token`)
     }
 })
 
