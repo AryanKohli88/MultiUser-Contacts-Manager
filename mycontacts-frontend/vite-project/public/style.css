@@ -1,0 +1,212 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+@keyframes shapeChange {
+  0% {
+    border-radius: 0%; /* Start as a square */
+  }
+  50% {
+    border-radius: 50%; /* Transition to a circle */
+    right: 15vh;
+  }
+  100% {
+    border-radius: 0%; /* Transition back to a square */
+  }
+}
+
+.login-btn {
+  position: fixed;
+  top: 7vw; 
+  right: 20vh; 
+  background-color: rgb(13, 46, 125);   
+  border: none;  
+  color: white;  
+  padding: 15px;
+  text-decoration: none; 
+  display: inline-block;
+  font-size: 20px;
+  cursor: pointer;  
+  transition: 0.3s; 
+  animation: shapeChange 2s infinite;
+}
+
+.login-btn:hover {
+  background-color: darkorange;  /* Slightly darker color on hover */
+  transform: scale(1.5);  /* Enlarge button slightly on hover */
+}
+
+
+html {
+  font-family: "Montserrat", sans-serif;
+}
+body {
+  background: #eee;
+}   
+footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    /* width: 100%; */
+    /* height: 2.5rem; */
+} 
+  
+footer p {
+  color: #ccc;
+}  
+.topDiv {
+  background-color: #e20909;
+  display: flex;
+  align-items: center; /* Vertically center */
+  justify-content: center; /* Horizontally center */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+} 
+
+upperbar h1 {
+  color: #fff;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
+  margin: 0;
+}
+
+.Card{
+  margin: 2vh;
+}
+
+form {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+
+form input,
+form textarea {
+  width: 100%;
+  border: none;
+  padding: 4px;
+  outline: none;
+  font-size: 1.2em;
+  font-family: inherit;
+  resize: none;
+}
+form button {
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  background: #f5ba13;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+}
+.searchLabel {
+  width: 100%;
+  border: 2px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
+  padding: 10px; /* Increased padding for comfort */
+  outline: none; /* Remove default outline */
+  font-size: 1.2em; /* Font size */
+  font-family: inherit; /* Inherit font family */
+  resize: none; /* Prevent resizing */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for border and shadow */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+.games{
+  text-transform: uppercase;
+  margin-bottom: 10px;
+
+}
+  
+.main-details {
+  column-count: 2; 
+  column-gap: 20px;
+}
+
+#bottomDiv {
+width: 97%;
+margin-top: 1vh;
+background-color: white; 
+border: 4px solid red; 
+border-radius: 20px; 
+padding: 20px;
+}  
+
+.left {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.right{
+  margin: auto;
+  width: 40vw;
+  flex: 1;
+}
+.right-animation{
+  display: flex;
+  margin: auto;
+  width: 30vw;
+}
+.content{
+  display: flexbox;
+  flex-direction: column;
+  width: 100%;
+}
+.up{
+  flex: 3;
+  width: 100%;
+  display: flex;
+  border: 4px solid black;
+  padding:  2vw;
+}
+
+.down {
+  margin-top: 2vh;
+  font-size: 18px; 
+  font-family: sans-serif; 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.image {
+  display: flex;
+  justify-content: center; /* Centers items horizontally */
+  align-items: center;     /* Centers items vertically, if needed */
+  flex-wrap: wrap;         /* Allows items to wrap to the next line if they overflow */
+  gap: 10px;               /* Adds space between buttons, adjust as needed */
+  width: 100%;
+  height: auto;
+}
+
+.type{
+  display: flex;
+  justify-content: center; /* Centers items horizontally */
+  align-items: center;     /* Centers items vertically, if needed */
+  flex-wrap: wrap;         /* Allows items to wrap to the next line if they overflow */
+  gap: 10px;               /* Adds space between buttons, adjust as needed */
+  margin-top: 1vw;
+}
+
+/* Optional: Add a hover effect */
+.type button:hover {
+  background-color: darkgrey; /* Change to your preferred hover color */
+}
+
+.button{
+  position: fixed;
+  top: 3vw; /* Adjust this value to your desired distance from the top */
+  right: 10px; /* Adjust this value to your desired distance from the right */
+  z-index: 1000; /* Ensure it stays above other elements */
+}

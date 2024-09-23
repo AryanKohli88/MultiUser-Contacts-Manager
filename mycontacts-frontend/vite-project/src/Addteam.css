@@ -1,0 +1,39 @@
+.add-team-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .pokemon-input-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .pokemon-input-group label {
+    margin-bottom: 5px;
+  }
+  
+  .pokemon-input-group input {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+  }
+  
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+  }
+  
