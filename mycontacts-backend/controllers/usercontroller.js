@@ -3,9 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const user = require("../models/UserModel");
 
-//@desc get all contacts
-//@route GET /api/users
-//@access public 
 const regUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
@@ -44,7 +41,6 @@ const regUser = asyncHandler(async (req, res) => {
     }
 });
 
-//@access public 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -67,7 +63,6 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 });
 
-//@access private
 const currUser = asyncHandler(async (req, res) => {
     return res.json(req.user);
 });

@@ -9,7 +9,7 @@ const {
 } = require("../controllers/contactcontroller");
 const validatetoken = require("../middleware/validatetokenhandler");
 
-router.use(validatetoken);
+router.use(validatetoken); // to validate for all contacts APIs
 router.route("/").get(getContacts).post(createContact);
 router.route("/:id").get(getConact).delete(deleteconatct).put(updateContact);
 

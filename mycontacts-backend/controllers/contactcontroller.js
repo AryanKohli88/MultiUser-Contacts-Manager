@@ -1,16 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const Contact = require("../models/ContactModel");
-//@desc get all contacts
-//@route GET /api/contacts
-//@access private 
+
 const getContacts = asyncHandler(async(req,res)=> {
     const contacts = await Contact.find({user_id: req.user.id});
     res.status(200).json(contacts);
 });
 
-//@desc Create new contact
-//@route POST /api/contacts
-//@access private 
 const createContact = asyncHandler(async(req,res)=> {
     const{name, email, phone} = req.body;
     if(!name || !email || !phone ){
@@ -29,10 +24,6 @@ const createContact = asyncHandler(async(req,res)=> {
     res.status(201).json(contact);
 });
 
-
-//@desc Update a contact
-//@route PUT /api/contacts/:id
-//@access private
 const updateContact = asyncHandler(async(req,res)=> {
     const contact = await Contact.findById(req.params.id);
     if(!contact){
@@ -54,9 +45,6 @@ res.status(200).json(updateContact);
 
 });
 
-//@desc get indv contact
-//@route delete /api/contacts/:id
-//@access private 
 const getConact = asyncHandler(async(req,res)=> {
     const contact = await Contact.findById(req.params.id);
     if (contact.user_id.toString() !== req.user.id) {
@@ -70,9 +58,6 @@ const getConact = asyncHandler(async(req,res)=> {
     res.status(200).json(contact);
 });
 
-//@desc Create new contact
-//@route individual contact /api/contacts
-//@access private
 const deleteconatct = asyncHandler(async(req,res)=> {
     const contact = await Contact.findById(req.params.id);
     if(!contact){
@@ -85,7 +70,6 @@ const deleteconatct = asyncHandler(async(req,res)=> {
         res.status(403);
         throw new Error("you can not update other user's contacts");
     }
-
 
     await Contact.deleteOne({_id: req.params.id});
     res.status(200).json(contact);
