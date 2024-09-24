@@ -12,12 +12,12 @@ import { createBrowserRouter, BrowserRouter as Router, Link, RouterProvider } fr
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <div><App /></div>,
+  },
+  {
+    path: "/login",
     element: <div><LoginPage /></div>,
   },
-  // {
-  //   path: "/home",
-  //   element: <div><App /></div>
-  // },  
   {
     path: "/NewUser",
     element: <div><SignUpPage /></div>

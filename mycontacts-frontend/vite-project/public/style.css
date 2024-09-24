@@ -1,212 +1,160 @@
-* {
-  padding: 0;
+/* public/style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
+  padding: 0;
+}
+
+.auth-container, .profile-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2, .profile-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-container form div, .profile-container form div {
+  margin-bottom: 15px;
+}
+
+.auth-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.auth-container input{
+  width: 100%;
+  padding: 8px;
   box-sizing: border-box;
 }
-@keyframes shapeChange {
-  0% {
-    border-radius: 0%; /* Start as a square */
-  }
-  50% {
-    border-radius: 50%; /* Transition to a circle */
-    right: 15vh;
-  }
-  100% {
-    border-radius: 0%; /* Transition back to a square */
-  }
-}
-
-.login-btn {
-  position: fixed;
-  top: 7vw; 
-  right: 20vh; 
-  background-color: rgb(13, 46, 125);   
-  border: none;  
-  color: white;  
-  padding: 15px;
-  text-decoration: none; 
-  display: inline-block;
-  font-size: 20px;
-  cursor: pointer;  
-  transition: 0.3s; 
-  animation: shapeChange 2s infinite;
-}
-
-.login-btn:hover {
-  background-color: darkorange;  /* Slightly darker color on hover */
-  transform: scale(1.5);  /* Enlarge button slightly on hover */
-}
-
-
-html {
-  font-family: "Montserrat", sans-serif;
-}
-body {
-  background: #eee;
-}   
-footer {
-    position: absolute;
-    text-align: center;
-    bottom: 0;
-    /* width: 100%; */
-    /* height: 2.5rem; */
-} 
-  
-footer p {
-  color: #ccc;
-}  
-.topDiv {
-  background-color: #e20909;
-  display: flex;
-  align-items: center; /* Vertically center */
-  justify-content: center; /* Horizontally center */
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-} 
-
-upperbar h1 {
-  color: #fff;
-  font-family: "McLaren", cursive;
-  font-weight: 200;
-  margin: 0;
-}
-
-.Card{
-  margin: 2vh;
-}
-
-form {
-  position: relative;
-  width: 480px;
-  margin: 30px auto 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 7px;
-  box-shadow: 0 1px 5px rgb(138, 137, 137);
-}
-
-form input,
-form textarea {
+.modal-content input {
   width: 100%;
-  border: none;
-  padding: 4px;
-  outline: none;
-  font-size: 1.2em;
-  font-family: inherit;
-  resize: none;
+  padding: 8px;
+  margin-bottom: 6px;
+  box-sizing: border-box;
 }
-form button {
-  position: absolute;
-  right: 18px;
-  bottom: -18px;
-  background: #f5ba13;
-  color: #fff;
+
+.auth-container button {
+  width: 100%;
+  padding: 10px;
+  background: #5cb85c;
   border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 16px;
   cursor: pointer;
-  outline: none;
-}
-.searchLabel {
-  width: 100%;
-  border: 2px solid #ccc; /* Light gray border */
-  border-radius: 4px; /* Slightly rounded corners */
-  padding: 10px; /* Increased padding for comfort */
-  outline: none; /* Remove default outline */
-  font-size: 1.2em; /* Font size */
-  font-family: inherit; /* Inherit font family */
-  resize: none; /* Prevent resizing */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for border and shadow */
-  background-color: #f9f9f9; /* Light background color */
 }
 
-.games{
-  text-transform: uppercase;
+.logout-button{
+  width: 100%;
+  padding: 10px;
+  background: #d9534f;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-button{
+  width: 100%;
+  padding: 10px;
+  background: #5cb85c;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.auth-container button:hover{
+  background: #4cae4c;
+}
+.add-button button:hover {
+  background: #4cae4c;
+}
+
+.error-msg {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profile-container li {
+  background: #f9f9f9;
   margin-bottom: 10px;
-
-}
-  
-.main-details {
-  column-count: 2; 
-  column-gap: 20px;
+  padding: 15px;
+  border-radius: 4px;
+  position: relative; /* Position relative for absolute positioning of the button */
 }
 
-#bottomDiv {
-width: 97%;
-margin-top: 1vh;
-background-color: white; 
-border: 4px solid red; 
-border-radius: 20px; 
-padding: 20px;
-}  
-
-.left {
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
+.delete-button {
+  position: absolute; /* Positioning it absolutely within the li */
+  bottom: 10px; /* Position it at the bottom */
+  right: 10px; /* Position it to the right */
+  width: 20%; /* Set a smaller width */
+  padding: 5px; /* Smaller padding */
+  background: #d9534f; /* Red background for delete */
+  border: none;
+  color: #fff;
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  border-radius: 4px; /* Slightly round corners */
 }
-
-.right{
-  margin: auto;
-  width: 40vw;
-  flex: 1;
+.delete-button:hover, .logout-button:hover{
+  background: #f02020ab;
 }
-.right-animation{
-  display: flex;
-  margin: auto;
-  width: 30vw;
-}
-.content{
-  display: flexbox;
-  flex-direction: column;
-  width: 100%;
-}
-.up{
-  flex: 3;
-  width: 100%;
-  display: flex;
-  border: 4px solid black;
-  padding:  2vw;
-}
-
-.down {
-  margin-top: 2vh;
-  font-size: 18px; 
-  font-family: sans-serif; 
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-
-.image {
-  display: flex;
-  justify-content: center; /* Centers items horizontally */
-  align-items: center;     /* Centers items vertically, if needed */
-  flex-wrap: wrap;         /* Allows items to wrap to the next line if they overflow */
-  gap: 10px;               /* Adds space between buttons, adjust as needed */
-  width: 100%;
-  height: auto;
-}
-
-.type{
-  display: flex;
-  justify-content: center; /* Centers items horizontally */
-  align-items: center;     /* Centers items vertically, if needed */
-  flex-wrap: wrap;         /* Allows items to wrap to the next line if they overflow */
-  gap: 10px;               /* Adds space between buttons, adjust as needed */
-  margin-top: 1vw;
-}
-
-/* Optional: Add a hover effect */
-.type button:hover {
-  background-color: darkgrey; /* Change to your preferred hover color */
-}
-
-.button{
+/* src/styles.css or wherever your styles are defined */
+.modal {
   position: fixed;
-  top: 3vw; /* Adjust this value to your desired distance from the top */
-  right: 10px; /* Adjust this value to your desired distance from the right */
-  z-index: 1000; /* Ensure it stays above other elements */
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 300px; /* Set a width */
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.instructionsBoxStyle {
+  background-color: #f8f9fa;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
 }

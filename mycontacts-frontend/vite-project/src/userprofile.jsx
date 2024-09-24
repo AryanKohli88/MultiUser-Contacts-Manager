@@ -1,138 +1,85 @@
+// src/userprofile.jsx
 import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import TopBar from './components/TopBar';
-import UserProfilePic from './components/profilepic';
-import UserAndTeamsDetails from './components/teamsdetails';
+import { fetchContacts, deleteContact} from './api';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import CurrentUser from './components/currentuser';
+import LogoutBtn from './components/logoutbutton';
+import AddContact from './components/addcontact';
 
-function UserProfile() {
+const UserProfile = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [teams, setTeams] = useState([]);
-  const [pokemonNames, setPokemonNames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [contacts, setContacts] = useState([]);
+  const [error, setError] = useState('');
 
+  // Fetch contacts on component mount
   useEffect(() => {
-    const fetchData = async () => {
+    const getContacts = async () => {
+      const token = Cookies.get('accessToken');
+      if (!token) {
+        alert("didn't get token");
+        navigate('/login');
+        return;
+      }
       try {
-        const accessToken = Cookies.get('accessToken');
-        if (!accessToken) {
-          throw new Error('No access token found');
+        const data = await fetchContacts(token);
+        setContacts(data);
+      } catch (err) {
+        setError(err.message);
+        if (err.message === 'Unauthorized') {
+          navigate('/login');
         }
-        const host = import.meta.env.VITE_BACKEND_HOST;
-        // Fetch user profile
-        const userResponse = await fetch(`${host}/api/user/current/`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        if (!userResponse.ok) {
-          throw new Error('Failed to fetch user profile');
-        }
-        const userData = await userResponse.json();
-        setUser(userData);
-
-        // Fetch teams
-        const teamsResponse = await fetch(`${host}/api/team/`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        if (!teamsResponse.ok) {
-          throw new Error('Failed to fetch user teams');
-        }
-        const teamsData = await teamsResponse.json();
-        setTeams(teamsData);
-
-        // Fetch Pokémon names
-        const fetchPokemonNames = async () => {
-          const names = await Promise.all(teamsData.map(async (team) => {
-            const pokemonNamesPromises = team.pokemonArray.map(async (entry) => {
-              try {
-                const name = await fetchnames(entry);
-                return name;
-              } catch (error) {
-                console.error(`Failed to fetch name for Pokémon entry ${entry}:`, error.message);
-                return 'Unknown';
-              }
-            });
-            return Promise.all(pokemonNamesPromises);
-          }));
-          setPokemonNames(names);
-        };
-
-        await fetchPokemonNames();
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
       }
     };
 
-    const fetchnames = async (entry) => {
-      try {
-        const info = await fetch(`https://pokeapi.co/api/v2/pokemon/${entry}`);
-        if (!info.ok) throw new Error('Failed to fetch Pokémon name');
-        const infojson = await info.json();
-        return infojson.forms[0].name;
-      } catch (e) {
-        console.log(e);
-        setError(e.message);
-        return 'Unknown';
-      }
-    };
+    getContacts();
+  }, [navigate]);
 
-    fetchData();
-  }, []);
 
-  const handleAddTeam = async (newTeam) => {
-    setTeams((prevTeams) => [...prevTeams, newTeam]);
+  const handleDeleteContact = async (contactId) => {
+    const token = Cookies.get('accessToken');
+    if (!token) {
+      alert("No token found!");
+      navigate('/login');
+      return;
+    }
+
+    try {
+      await deleteContact(contactId, token);
+      setContacts((prevContacts) => prevContacts.filter(contact => contact._id !== contactId));
+    } catch (err) {
+      setError(err.message);
+    }
   };
-
-  const handleRemoveTeam = async (teamId) => {
-    setTeams(teams.filter(team => team._id !== teamId));
-    // team name is changing but not the conten (pokemon list), same when adding a team.
-  }
-
-  const handleLogout = () => {
-    Cookies.remove('accessToken'); // Clear the token
-    navigate('/login'); // Redirect to login page
-  };
-
-  if (loading) return <div className="searchLabel">Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <TopBar />
-      {/* <button onClick={handleLogout} style={{ padding: '10px', borderRadius: '5px', border: 'none', backgroundColor: '#dc3545', color: 'white', cursor: 'pointer', }}> */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: '10px',
-            borderRadius: '5px',
-            border: 'none',
-            backgroundColor: '#dc3545',
-            color: 'white',
-            cursor: 'pointer',
-          }}
-        >
-          Logout
-        </button>
-      </div>
-      {/* </button> */}
-      <UserAndTeamsDetails 
-        user={user} 
-        teams={teams} 
-        pokemonNames={pokemonNames} 
-        onAddTeam={handleAddTeam}
-        onRemoveTeam={handleRemoveTeam}
-      />
-      <UserProfilePic username={user.username}/>
+    <div className="profile-container">
+      <CurrentUser />
+      <AddContact setContacts={setContacts}/>
+      {error && <p className="error-msg">{error}</p>}
+      <h3>Your Contacts:</h3>
+      {contacts.length === 0 ? (
+        <p>No contacts found.</p>
+      ) : (
+        <ul>
+          {contacts.map((contact) => (
+            <li key={contact._id} className="contact-item">
+              <strong>{contact.name}</strong><br />
+              Email: {contact.email}<br />
+              Phone: {contact.phone}
+              <button 
+                className="delete-button" 
+                onClick={() => handleDeleteContact(contact._id)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    <LogoutBtn />  
     </div>
   );
-}
+};
 
 export default UserProfile;
