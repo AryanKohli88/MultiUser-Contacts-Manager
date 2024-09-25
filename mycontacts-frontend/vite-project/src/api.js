@@ -51,3 +51,16 @@ export const deleteContact = async (contactId, token) => {
   });
   return handleResponse(response);
 };
+
+export const updateContact = async (contactId, updatedContact, token) => {
+  const response = await fetch(`${API_BASE}/api/contacts/${contactId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(updatedContact)
+  });
+  return handleResponse(response);
+};
+

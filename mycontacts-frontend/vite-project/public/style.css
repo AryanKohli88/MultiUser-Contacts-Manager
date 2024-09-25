@@ -114,6 +114,42 @@ body {
 .delete-button:hover, .logout-button:hover{
   background: #f02020ab;
 }
+
+.update-button {
+  position: absolute; /* Positioning it absolutely within the li */
+  bottom: 50px; /* Position it at the bottom */
+  right: 10px; /* Position it to the right */
+  width: 20%; /* Set a smaller width */
+  padding: 5px; /* Smaller padding */
+  background: #5aa7ff; /* Red background for delete */
+  border: none;
+  color: #fff;
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  border-radius: 4px; /* Slightly round corners */
+}
+.update-button:hover {
+  background:  #202ef0ed;
+}
+
+
+.save-button {
+  position: absolute; /* Positioning it absolutely within the li */
+  bottom: 5px; /* Position it at the bottom */
+  right: 45px; /* Position it to the right */
+  width: 20%; /* Set a smaller width */
+  padding: 5px; /* Smaller padding */
+  background: #a3a3a3; /* Red background for delete */
+  border: none;
+  color: #fff;
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  border-radius: 4px; /* Slightly round corners */
+}
+.save-button:hover {
+  background:  #707070ed;
+}
+
 /* src/styles.css or wherever your styles are defined */
 .modal {
   position: fixed;
