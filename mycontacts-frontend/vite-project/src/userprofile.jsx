@@ -10,9 +10,9 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState('');
-  const [editableContactId, setEditableContactId] = useState(null); // Track editable contact ID
-  const [editableContactData, setEditableContactData] = useState({}); // Track editable contact data
-  const [originalContactData, setOriginalContactData] = useState({}); // Store original data to revert
+  const [editableContactId, setEditableContactId] = useState(null); 
+  const [editableContactData, setEditableContactData] = useState({}); 
+  const [originalContactData, setOriginalContactData] = useState({}); 
 
   useEffect(() => {
     const getContacts = async () => {
@@ -36,11 +36,11 @@ const UserProfile = () => {
     getContacts();
   }, [navigate]);
 
-  // Listen for Escape key to revert changes and exit edit mode
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && editableContactId !== null) {
-        // Revert changes and exit edit mode
+        
         setEditableContactData(originalContactData);
         setEditableContactId(null);
       }
@@ -73,8 +73,8 @@ const UserProfile = () => {
 
   const handleEditContact = (contact) => {
     setEditableContactId(contact._id);
-    setEditableContactData(contact); // Set contact data for editing
-    setOriginalContactData(contact); // Store original data to revert if needed
+    setEditableContactData(contact); 
+    setOriginalContactData(contact); 
   };
 
   const handleUpdateContact = async () => {
@@ -92,7 +92,7 @@ const UserProfile = () => {
           contact._id === editableContactId ? editableContactData : contact
         )
       );
-      setEditableContactId(null); // Exit edit mode
+      setEditableContactId(null); 
     } catch (err) {
       setError(err.message);
     }
